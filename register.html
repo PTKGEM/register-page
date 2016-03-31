@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>逗比之家登录</title>
+	<title>register登录</title>
 	<style type="text/css">
-
 		html,
 		body,
 		div,
@@ -31,7 +30,8 @@
 			position: relative;
 			min-width: 520px;
 			min-height: 500px;
-			background-color: rgba(100,150,255, .3);
+			/*页面背景颜色*/
+			background-color: rgba(50,100,255, .3);
 		}
 
 		.wrapper {
@@ -117,6 +117,7 @@
 			background-color: #ccc;
 		}
 
+		/*已有用户名提示显隐*/
 		.show {
 			display: block;
 		}
@@ -147,7 +148,8 @@
 			background-image: url(eyes.png);
 			border-left: 2px solid #ccc;
 		}
-
+		
+		/*密码框是否明文显示设置*/
 		.nomingwen {
 			background-position: 0 0;
 		}
@@ -174,15 +176,18 @@
 		}
 
 		[hidden] { display: none; }
-
 	</style>
 </head>
+<!-- 写在前面，代码临时完成需求，实现有点简单凌乱，日后有空再完善（But估计日后只有浏览器和God能理解这些代码啦！），现在就先这样吧。 -->
 <body>
 	<div class="wrapper">
+		<!-- 头部 -->
 		<div class="header"><img src="doubi.gif" alt="pic" style="width: 500px; height: 200px;" /></div>
 		<div id="logo"><img src="default.jpg" alt="logo-pic" id="photo" style="width: 100px; height: 100px;" /></div>
-
+		<!-- END of 头部 -->
+		<!-- 表单 -->
 		<form id="register" action="" metdod="post">
+			<!-- 表单输入框部分 -->
 			<div class="items">
 			    <label for="name" class="left-desc">User_name:</label>
 			    <input type="text" id="name" value="" placeholder="用户名" />
@@ -199,10 +204,14 @@
 			    <input type="password" id="pwd" placeholder="密码" />
 			    <span id="eyes_pic" class="nomingwen"></span>
 			</div>
+			<!-- END of 表单输入框部分 -->
+			<!-- 提交按钮 -->
 			<div class="items">
-				<input type="submit" value="确认·登录" />
+				<input type="submit" value="登录" />
 			</div>
+			<!-- END of 提交按钮 -->
 		</form>
+		<!--END of 表单 -->
 	</div>
 
 	<script type="text/javascript">
@@ -214,10 +223,10 @@
 		var elems = document.getElementsByTagName('li');
 		var headPic = document.getElementById('photo');
 		var userName = document.getElementById("name");
-		
+		// 密码显隐开关
 		var MingWen = true;
-		var show = true;
 
+		// 密码显隐
 		eyesSpan.onclick = function () {
 			if (MingWen){
 				pwdInput.setAttribute("type", "text");
@@ -230,26 +239,24 @@
 			}
 		}
 
+		// 用户名提示
 		usersSpan.onclick = function () {
-			if (show) {
 				tiShi.setAttribute("class", "show");
 				show = false;
-			}else{
-				// tiShi.setAttribute("class", "hide");
-				// show = true;
 				htmlBody.addEventListener('click', function () {
 					tiShi.setAttribute("class", "hide");
 					show = true;
 				},'false')
-			}
 		}
 
+		// 头像、用户名同步
 		for (var i = 0; i < elems.length; i++) {
 			(function (index) {
 				elems[index].addEventListener('click', function () {
+					// 头像同步
 					var picSrc = "user_" + (index+1) + ".jpg";
 					photo.setAttribute("src", picSrc);
-	
+					// 用户名同步
 					userName.value = elems[index].innerHTML;
 				},'false')
 			})(i);
