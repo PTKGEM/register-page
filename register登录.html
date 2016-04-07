@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>register登录</title>
+	<style type="text/css">
+		html,
+		body,
+		div,
+		ul,
+		li {
+		    margin: 0;
+		    padding: 0;
+		    -webkit-box-sizing: border-box;
+		    -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+		}
+
+		input,
+		li {
+			-webkit-box-sizing: content-box;
+			-moz-box-sizing: content-box;
+			box-sizing: content-box;
+		}
+
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			position: relative;
+			min-width: 520px;
+			min-height: 500px;
+			/*页面背景颜色*/
+			background-color: rgba(50,100,255, .3);
+		}
+
+		.wrapper {
+			width: 500px;
+			height: 360px;
+			position: absolute;
+			background-color: rgba(255,255,255, .9); 
+			box-shadow: 8px 10px 10px rgba(8, 8, 8, .3);
+			border-radius: 10px;
+			overflow: hidden;
+			top: 50%;
+			left: 50%;
+			margin-left: -250px;
+			margin-top: -180px;			
+		}
+
+		.header {
+			width: 500px;
+			height: 200px;
+		}
+
+		#logo {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			top: 50px;
+			left: 200px;
+			border-radius: 50%;
+			overflow: hidden;
+			z-index: 99;
+		}
+
+		input[id=name],
+		input[id=pwd] {
+			width: 200px;
+			height: 25px;
+			padding: 2px 8px;
+			font-size: 18px;
+			background-color: #fff;
+			font-weight: 900;
+			border: 2px solid #ccc;
+		}
+
+		.items {
+			margin-top: 15px;
+		}
+
+		.left-desc {
+			display: inline-block;
+			min-width: 36%;
+			font-size: 18px;
+			color: #666;
+			font-weight: 900;
+			text-align: right;
+			margin-right: 10px;
+		}
+
+		#suggest {
+			position: absolute;
+			top: 245px;
+			left: 198px;
+			width: 220px;
+			height: 60px;
+			border: 2px solid #ccc;
+			border-top: 2px solid #fff;
+			overflow: hidden;
+			z-index: 999;
+		}
+
+		#suggest ul {
+			list-style: none;
+		}
+
+		#suggest ul li {
+			height: 25px;
+			padding: 2px 8px;
+			font-size: 18px;
+			background-color: #fff;
+			font-weight: 900;
+		}
+
+		#suggest ul li:hover {
+			background-color: #ccc;
+		}
+
+		/*已有用户名提示显隐*/
+		.show {
+			display: block;
+		}
+
+		.hide {
+			display: none;
+		}
+
+		#users_pic,
+		#eyes_pic {
+			display: inline-block;
+			position: absolute;
+			width: 29px;
+			height: 29px;
+			margin-left: -32px;
+			margin-top: 2px;
+			border-radius: 3px;
+			cursor: pointer;
+			overflow: hidden;
+		}
+
+		#users_pic {
+			background-image: url(users.png);
+			border-left: 2px solid #ccc;
+		}
+		
+		#eyes_pic {
+			background-image: url(eyes.png);
+			border-left: 2px solid #ccc;
+		}
+		
+		/*密码框是否明文显示设置*/
+		.nomingwen {
+			background-position: 0 0;
+		}
+		.mingwen {
+			background-position: 29px 0;
+		}
+
+		input[type=submit] {
+			width: 360px;
+			height: 36px;
+			margin-top: -5px;
+			font-size: 20px;
+			font-weight: 900;
+			border-radius: 10px;
+			color: #FFF;
+			background-color: rgba(51,204,51, .8);
+			cursor: pointer;
+			outline: none;
+		}
+
+		form>div:last-child {
+			width: 100%;
+			padding: 0 70px;
+		}
+
+		[hidden] { display: none; }
+	</style>
+</head>
+<!-- 写在前面，代码临时完成需求，实现有点简单凌乱，日后有空再完善（But估计日后只有浏览器和God能理解这些代码啦！），现在就先这样吧。 -->
+<body>
+	<div class="wrapper">
+		<!-- 头部 -->
+		<div class="header"><img src="doubi.gif" alt="pic" style="width: 500px; height: 200px;" /></div>
+		<div id="logo"><img src="default.jpg" alt="logo-pic" id="photo" style="width: 100px; height: 100px;" /></div>
+		<!-- END of 头部 -->
+		<!-- 表单 -->
+		<form id="register" action="" method="post">
+			<!-- 表单输入框部分 -->
+			<div class="items">
+			    <label for="name" class="left-desc">User_name:</label>
+			    <input type="text" id="name" value="" placeholder="用户名" />
+			    <span id="users_pic"></span>
+			    <div id="suggest" class="hide">
+			    	<ul>
+			    		<li>user_1</li>
+			    		<li>user_2</li>
+			    	</ul>
+			    </div>
+			</div>
+			<div class="items">
+			    <label for="password" class="left-desc">Password:</label>
+			    <input type="password" id="pwd" placeholder="密码" />
+			    <span id="eyes_pic" class="nomingwen"></span>
+			</div>
+			<!-- END of 表单输入框部分 -->
+			<!-- 提交按钮 -->
+			<div class="items">
+				<input type="submit" value="登录" />
+			</div>
+			<!-- END of 提交按钮 -->
+		</form>
+		<!--END of 表单 -->
+	</div>
+
+	<script type="text/javascript">
+		var eyesSpan = document.getElementById('eyes_pic');
+		var usersSpan = document.getElementById('users_pic');
+		var htmlBody = document.getElementsByTagName('body')[0];
+		var pwdInput = document.getElementById('pwd');
+		var tiShi = document.getElementById('suggest');
+		var elems = document.getElementsByTagName('li');
+		var headPic = document.getElementById('photo');
+		var userName = document.getElementById("name");
+		// 密码显隐开关
+		var MingWen = true;
+
+		// 密码显隐
+		eyesSpan.onclick = function () {
+			if (MingWen){
+				pwdInput.setAttribute("type", "text");
+				this.setAttribute("class", "mingwen");
+				MingWen = false;
+			}else{
+				pwdInput.setAttribute("type", "password");
+				this.setAttribute("class", "nomingwen");
+				MingWen = true;
+			}
+		}
+
+		// 用户名提示
+		usersSpan.onclick = function () {
+				tiShi.setAttribute("class", "show");
+				show = false;
+				htmlBody.addEventListener('click', function () {
+					tiShi.setAttribute("class", "hide");
+					show = true;
+				},'false')
+		}
+
+		// 头像、用户名同步
+		for (var i = 0; i < elems.length; i++) {
+			(function (index) {
+				elems[index].addEventListener('click', function () {
+					// 头像同步
+					var picSrc = "user_" + (index+1) + ".jpg";
+					photo.setAttribute("src", picSrc);
+					// 用户名同步
+					userName.value = elems[index].innerHTML;
+				},'false')
+			})(i);
+		}
+	</script>
+</body>
+</html>
